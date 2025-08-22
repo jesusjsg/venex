@@ -1,7 +1,7 @@
 from typing import Any
 from pydantic import BeforeValidator, computed_field
 from typing_extensions import Annotated
-from pydantic.networks import AnyHttpUrl, Url, UrlConstraints
+from pydantic.networks import AnyHttpUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -23,18 +23,16 @@ class Settings(BaseSettings):
         env_ignore_empty=True,
     )
 
-    DEBUG: bool = True
-    SUPABASE_URL: Annotated[Url, UrlConstraints(allowed_schemes=["https"])] = (
-        "https://test.supabase.com"
-    )
-    SUPABASE_API_KEY: str = "test"
-    ENVIRONMENT: str = "development"
-    PROJECT_NAME: str = "venex"
-    PROJECT_VERSION: str = "0.1.0"
-    FRONTEND_HOST: str = "http://localhost:3000"
+    DEBUG: bool
+    SUPABASE_URL: str
+    SUPABASE_API_KEY: str
+    ENVIRONMENT: str
+    PROJECT_NAME: str
+    PROJECT_VERSION: str
+    FRONTEND_HOST: str
 
-    ALLOWED_CREDENTIALS: bool = False
-    ALLOWED_ORIGINS: Annotated[list[AnyHttpUrl] | str, BeforeValidator(parse_cors)] = []
+    ALLOWED_CREDENTIALS: bool
+    ALLOWED_ORIGINS: Annotated[list[AnyHttpUrl] | str, BeforeValidator(parse_cors)]
 
     @computed_field
     @property
