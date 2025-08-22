@@ -8,7 +8,21 @@ class SupabaseClient:
 
     @classmethod
     async def create(cls):
-        cls = await create_async_client(
+        client = await create_async_client(
             settings.SUPABASE_URL, settings.SUPABASE_API_KEY
         )
-        return cls
+        return cls(client)
+
+    async def test_connection(self) -> bool:
+        try:
+            response = await self.client.from_("currency_rates").select("*").execute()
+
+            if response.status_code == 200:
+                print("Connection to Supabase successful")
+                return True
+            else:
+                print("Connection to Supabase failed")
+                return False
+        except Exception as e:
+            print(e)
+            return False
