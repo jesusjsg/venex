@@ -30,6 +30,7 @@ class Settings(BaseSettings):
     PROJECT_NAME: str
     PROJECT_VERSION: str
     FRONTEND_HOST: str
+    API_VERSION: str
 
     ALLOWED_CREDENTIALS: bool
     ALLOWED_ORIGINS: Annotated[list[AnyHttpUrl] | str, BeforeValidator(parse_cors)]
