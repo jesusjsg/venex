@@ -7,9 +7,11 @@ requires-python = ">=3.13"
 dependencies = [
     "asyncpg>=0.30.0",
     "bcrypt>=4.3.0",
+    "beautifulsoup4>=4.13.4",
     "fastapi[standard]>=0.116.1",
     "psycopg2>=2.9.10",
     "pydantic-settings>=2.10.1",
+    "requests>=2.32.5",
     "supabase>=2.18.1",
 ]
 

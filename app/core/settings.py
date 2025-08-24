@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Literal
 from pydantic import BeforeValidator, computed_field
 from typing_extensions import Annotated
 from pydantic.networks import AnyHttpUrl
@@ -26,11 +26,12 @@ class Settings(BaseSettings):
     DEBUG: bool
     SUPABASE_URL: str
     SUPABASE_API_KEY: str
-    ENVIRONMENT: str
+    ENVIRONMENT: Literal["development", "production"] = "development"
     PROJECT_NAME: str
     PROJECT_VERSION: str
     FRONTEND_HOST: str
     API_VERSION: str
+    BINANCE_RATES_USDT_URL: str
 
     ALLOWED_CREDENTIALS: bool
     ALLOWED_ORIGINS: Annotated[list[AnyHttpUrl] | str, BeforeValidator(parse_cors)]
