@@ -15,5 +15,7 @@ if settings.ENVIRONMENT == "development":
     @router.get("/status/db")
     async def get_status_db(request: Request):
         supabase: SupabaseService = request.app.state.supabase
-        response = await supabase.client.table("currency_rates").select("*").execute()
+        response = (
+            await supabase.client.table(settings.SUPABASE_TABLE).select("*").execute()
+        )
         return response
