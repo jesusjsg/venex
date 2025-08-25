@@ -2,9 +2,20 @@
 
 Python backend API for fetching Venezuela currency exchange rates.
 
+## Features
+
+*   Fetches exchange rates from various sources.
+*   Provides a RESTful API to consume the data.
+
+## Technologies
+
+*   Python 3.12
+*   FastAPI
+*   Supabase
+
 ## Running the application
 
-To run the application, you need to have Docker and Docker Compose installed.
+To run the application, you need to have Python 3.12 installed.
 
 1.  Create a `.env` file with the following content:
 
@@ -16,12 +27,23 @@ To run the application, you need to have Docker and Docker Compose installed.
 2.  Run the application with the following command:
 
     ```
-    docker-compose up -d
+    uvicorn app.main:app --reload
     ```
 
 The application will be running at `http://localhost:8000`.
 
 ## API Endpoints
 
-*   `/v1/health`: Health check endpoint.
-*   `/v1/help`: Help endpoint.
+*   `/v1/help/`: Health check endpoint.
+*   `/v1/help/status/db`: Database status endpoint (development only).
+*   `/v1/rates/binance`: Get Binance rates.
+*   `/v1/rates/binance/p2p`: Get Binance P2P rates.
+*   `/v1/rates/binance/p2p/all`: Get all Binance P2P rates for all fiat currencies.
+
+## Contributing
+
+Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) for more information.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
