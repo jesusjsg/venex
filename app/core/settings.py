@@ -26,6 +26,7 @@ class Settings(BaseSettings):
     DEBUG: bool
     SUPABASE_URL: str
     SUPABASE_API_KEY: str
+    SUPABASE_TABLE: str
     ENVIRONMENT: Literal["development", "production"] = "development"
     PROJECT_NAME: str
     PROJECT_VERSION: str
