@@ -16,3 +16,9 @@ class SupabaseService:
     @property
     def client(self) -> AsyncClient:
         return self._client
+
+    async def save(self, data: dict):
+        response = (
+            await self.client.table(settings.SUPABASE_TABLE).insert(data).execute()
+        )
+        return response
