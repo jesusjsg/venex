@@ -36,7 +36,7 @@ The application will be running at `http://localhost:8000`.
 
 *   `/v1/help/`: Health check endpoint.
 *   `/v1/help/status/db`: Database status endpoint (development only).
-*   `/v1/rates/binance`: Get Binance rates.
+*   `/v1/rates/binance`: Save Binance rates.
 
 ## Contributing
 
