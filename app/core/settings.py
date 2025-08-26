@@ -36,6 +36,7 @@ class Settings(BaseSettings):
 
     ALLOWED_CREDENTIALS: bool
     ALLOWED_ORIGINS: Annotated[list[AnyHttpUrl] | str, BeforeValidator(parse_cors)]
+    ALLOWED_METHODS: list[str]
 
     @computed_field
     @property
