@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
 
-class BinanceRate:
+class BinanceScraper:
     BINANCE_API_URL = settings.BINANCE_RATES_USDT_URL
 
     def __init__(self, timeout: int = 10) -> None:
@@ -31,3 +31,6 @@ class BinanceRate:
         except Exception as e:
             print(f"Error while getting binance rate: {e}")
             return []
+        finally:
+            if self.driver:
+                self.driver.quit()
