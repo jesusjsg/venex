@@ -2,4 +2,6 @@
 
 path=/home/sortbito/dev/public-projects/venex
 
-uv run --project $path/app/services/jobs/binance_job.py
+cd $path
+
+uv run -m app.services.jobs.binance_job
