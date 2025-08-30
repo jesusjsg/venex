@@ -33,6 +33,8 @@ class Settings(BaseSettings):
     FRONTEND_HOST: str
     API_VERSION: str
     BINANCE_RATES_USDT_URL: str
+    BINANCE_PAGE: int
+    BINANCE_ROWS: int
 
     ALLOWED_CREDENTIALS: bool
     ALLOWED_ORIGINS: Annotated[list[AnyHttpUrl] | str, BeforeValidator(parse_cors)]
