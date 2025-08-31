@@ -1,5 +1,6 @@
 from supabase import AsyncClient, create_async_client
 from app.core.settings import settings
+from app.enum.rate_enum import RateCurrency
 
 
 class SupabaseService:
@@ -22,3 +23,12 @@ class SupabaseService:
             await self.client.table(settings.SUPABASE_TABLE).insert(data).execute()
         )
         return response
+
+    async def all(self, currency: RateCurrency):
+        response = (
+            await self.client.table(settings.SUPABASE_TABLE)
+            .select("currency, rate, source, date")
+            .eq("currency", currency.value)
+            .execute()
+        )
+        return response.data

@@ -7,5 +7,7 @@ class RateSource(Enum):
 
 
 class RateCurrency(Enum):
-    USDT = "usdt"
-    EUR = "eur"
+    USDT = "USDT"
+    USD = "USD"
+    EUR = "EUR"
+    CNY = "CNY"

@@ -26,3 +26,8 @@ class RateService:
         await supabase_service.save(data.model_dump())
 
         return data
+
+    async def get_all(self, currency: RateCurrency):
+        supabase_service = await SupabaseService.init()
+        data = await supabase_service.all(currency)
+        return data
