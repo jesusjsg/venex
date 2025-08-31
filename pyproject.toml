@@ -5,7 +5,6 @@ description = "Python backend API for fetching Venezuela currency exchange rates
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    
     "asyncpg>=0.30.0",
     "bcrypt>=4.3.0",
     "beautifulsoup4>=4.13.4",
@@ -14,6 +13,7 @@ dependencies = [
     "pydantic-settings>=2.10.1",
     "requests>=2.32.5",
     "selenium>=4.35.0",
+    "sqlmodel>=0.0.24",
     "supabase>=2.18.1",
 ]
 
