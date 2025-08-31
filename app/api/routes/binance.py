@@ -1,15 +1,20 @@
 from typing import List
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, HTTPException, status
 
+from app.api.deps import get_currency
 from app.enum.rate_enum import RateCurrency
-from app.schemas.binance_schema import BinanceSchema
+from app.models.rate_model import RatePublic
 from app.services.rate_service import RateService
 
 router = APIRouter(prefix="/binance")
 
 
-@router.get("/usdt", response_model=List[BinanceSchema])
-async def get_usdt():
+@router.get(
+    "/{currency}", response_model=List[RatePublic], summary="Get all rates by currency"
+)
+async def get_usdt(currency: RateCurrency = Depends(get_currency)) -> List[RatePublic]:
     service = RateService()
-    data = await service.get_all(RateCurrency.USDT)
+    data = await service.get_all(currency)
+    if not data:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Currency not found")
     return data

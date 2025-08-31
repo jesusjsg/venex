@@ -27,7 +27,7 @@ class SupabaseService:
     async def all(self, currency: RateCurrency):
         response = (
             await self.client.table(settings.SUPABASE_TABLE)
-            .select("currency, rate, source, date")
+            .select("id, currency, rate, source, date")
             .eq("currency", currency.value)
             .execute()
         )
