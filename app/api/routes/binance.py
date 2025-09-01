@@ -12,9 +12,11 @@ router = APIRouter(prefix="/binance")
 @router.get(
     "/{currency}", response_model=List[RatePublic], summary="Get all rates by currency"
 )
-async def get_usdt(currency: RateCurrency = Depends(get_currency)) -> List[RatePublic]:
+async def get_rates_by_currency(
+    currency: RateCurrency = Depends(get_currency),
+) -> List[RatePublic]:
     service = RateService()
-    data = await service.get_all(currency)
+    data = await service.get_all_rates(currency)
     if not data:
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Currency not found")
     return data
