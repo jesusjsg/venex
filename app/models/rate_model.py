@@ -2,14 +2,16 @@ from typing import Optional
 import uuid
 
 from sqlmodel import Field, SQLModel
-from datetime import datetime, date
+from datetime import datetime
 
 
 class RateBase(SQLModel):
     currency: str
     rate: float
     source: str
-    date: date
+    diff: Optional[float]
+    percent: Optional[float]
+    date: datetime
 
 
 class RateCreate(RateBase):
@@ -23,3 +25,7 @@ class Rate(RateBase, table=True):
 
 class RatePublic(RateBase):
     id: uuid.UUID
+
+
+class LastRate(SQLModel):
+    rate: float

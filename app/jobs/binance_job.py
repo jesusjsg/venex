@@ -6,7 +6,7 @@ from app.services.rates.binance_rate import BinanceRate
 from app.services.rate_service import RateService
 from app.enum.rate_enum import RateCurrency, RateSource
 
-currency = RateCurrency.USDT
+currency = RateCurrency.USD
 url = settings.BINANCE_RATES_USDT_URL
 headers = {"Content-Type": "application/json"}
 payload = {
