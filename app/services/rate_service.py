@@ -10,9 +10,11 @@ from app.utils import get_average_rate, get_diff, get_percent_change
 
 
 class RateService:
-    async def get_all_rates(self, currency: RateCurrency) -> list[RatePublic]:
+    async def get_all_rates(
+        self, currency: RateCurrency, start_date: str | None, end_date: str | None
+    ) -> list[RatePublic]:
         supabase_service = await SupabaseService.init()
-        data = await supabase_service.all(currency)
+        data = await supabase_service.get_all(currency, start_date, end_date)
         return [RatePublic(**rate) for rate in data]
 
     async def get_last_rate(self, currency: RateCurrency) -> LastRate | None:
@@ -42,7 +44,7 @@ class RateService:
             source=source.value,
             diff=diff,
             percent=percent,
-            date=datetime.datetime.now(),
+            date=datetime.datetime.today(),
         )
         payload = data.model_dump(mode="json", exclude={"created_at"})
         await supabase_service.save(payload)

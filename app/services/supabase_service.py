@@ -24,15 +24,6 @@ class SupabaseService:
         )
         return response
 
-    async def all(self, currency: RateCurrency):
-        response = (
-            await self.client.table(settings.SUPABASE_TABLE)
-            .select("id, currency, rate, source, diff, percent")
-            .eq("currency", currency.value)
-            .execute()
-        )
-        return response.data
-
     async def get_last(self, currency: RateCurrency):
         response = (
             await self.client.table(settings.SUPABASE_TABLE)
@@ -40,6 +31,21 @@ class SupabaseService:
             .eq("currency", currency.value)
             .order("created_at", desc=True)
             .limit(1)
+            .execute()
+        )
+        return response.data
+
+    async def get_all(
+        self, currency: RateCurrency, start_date: str | None, end_date: str | None
+    ):
+        response = (
+            await self.client.table(settings.SUPABASE_TABLE)
+            .select("id, currency, rate, source, date, diff, percent")
+            .eq("currency", currency.value)
+            .gte("date", start_date)
+            .lte("date", end_date)
+            .not_.is_("diff", "null")
+            .order("date", desc=True)
             .execute()
         )
         return response.data
