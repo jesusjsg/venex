@@ -1,6 +1,6 @@
 from supabase import AsyncClient, create_async_client
 from app.core.settings import settings
-from app.enum.rate_enum import RateCurrency
+from app.enum.rate_enum import RateBcvCurrency, RateBinanceCurrency
 
 
 class SupabaseService:
@@ -24,7 +24,7 @@ class SupabaseService:
         )
         return response
 
-    async def get_last(self, currency: RateCurrency):
+    async def get_last(self, currency: RateBinanceCurrency | RateBcvCurrency):
         response = (
             await self.client.table(settings.SUPABASE_TABLE)
             .select("rate")
@@ -36,16 +36,24 @@ class SupabaseService:
         return response.data
 
     async def get_all(
-        self, currency: RateCurrency, start_date: str | None, end_date: str | None
+        self,
+        currency: RateBinanceCurrency | RateBcvCurrency,
+        start_date: str | None,
+        end_date: str | None,
     ):
-        response = (
-            await self.client.table(settings.SUPABASE_TABLE)
-            .select("id, currency, rate, source, date, diff, percent")
-            .eq("currency", currency.value)
-            .gte("date", start_date)
-            .lte("date", end_date)
-            .not_.is_("diff", "null")
-            .order("date", desc=True)
-            .execute()
+        query = self.client.table(settings.SUPABASE_TABLE).select(
+            "id, currency, rate, source, date, diff, percent"
         )
+        query = query.eq("currency", currency.value)
+
+        if start_date:
+            query = query.gte("date", start_date)
+
+        if end_date:
+            query = query.lte("date", end_date)
+
+        query = query.not_.is_("diff", "null")
+        query = query.order("date", desc=True)
+
+        response = await query.execute()
         return response.data

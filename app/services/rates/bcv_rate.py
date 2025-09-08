@@ -3,7 +3,7 @@ import httpx
 from bs4 import BeautifulSoup
 
 from app.core.settings import settings
-from app.enum.rate_enum import RateCurrency
+from app.enum.rate_enum import RateBcvCurrency
 
 
 class BcvRate:
@@ -27,11 +27,11 @@ class BcvRate:
                     rate = rate_strong.get_text(strip=True)
 
                     try:
-                        enum_currency = RateCurrency(currency.upper())
+                        enum_currency = RateBcvCurrency(currency)
                     except ValueError:
                         continue
 
-                    if enum_currency in (RateCurrency.USD, RateCurrency.EUR):
+                    if enum_currency in (RateBcvCurrency.USD, RateBcvCurrency.EUR):
                         clean_rate = rate.replace(",", ".").replace(",", ".")
                         rates[currency] = float(clean_rate)
 

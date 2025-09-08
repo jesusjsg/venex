@@ -6,8 +6,11 @@ class RateSource(Enum):
     BANCO_CENTRAL = "banco central de venezuela"
 
 
-class RateCurrency(Enum):
+class RateBinanceCurrency(Enum):
     USDT = "USDT"
+
+
+class RateBcvCurrency(Enum):
     USD = "USD"
     EUR = "EUR"
     CNY = "CNY"

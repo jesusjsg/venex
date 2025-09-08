@@ -4,7 +4,7 @@ from starlette.concurrency import run_in_threadpool
 
 from app.services.rates.bcv_rate import BcvRate
 from app.services.rate_service import RateService
-from app.enum.rate_enum import RateCurrency, RateSource
+from app.enum.rate_enum import RateBcvCurrency, RateSource
 
 
 async def get_bcv_rates():
@@ -14,7 +14,7 @@ async def get_bcv_rates():
 
         rate_service = RateService()
         for currency, rate in data.items():
-            enum_currency = getattr(RateCurrency, currency)
+            enum_currency = getattr(RateBcvCurrency, currency)
             await rate_service.save_rates(
                 RateSource.BANCO_CENTRAL, enum_currency, [rate]
             )
