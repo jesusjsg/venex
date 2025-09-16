@@ -12,7 +12,9 @@ router = APIRouter(prefix="/bcv")
 
 
 @router.get(
-    "/{currency}", response_model=List[RatePublic], summary="Get all rates by currency"
+    "/{currency}",
+    response_model=List[RatePublic],
+    summary="Get all rates by currency. You can filter by date using start_date and end_date query parameters.",
 )
 async def get_rates_by_currency(
     currency: RateBcvCurrency = Depends(get_currency),
@@ -27,4 +29,3 @@ async def get_rates_by_currency(
             detail="The data for the currency provided is not found",
         )
     return data
-

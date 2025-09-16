@@ -1,7 +1,7 @@
 from datetime import date
 
 from typing import List
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, status
 
 from app.api.deps import get_currency
 from app.enum.rate_enum import RateBinanceCurrency
@@ -12,7 +12,9 @@ router = APIRouter(prefix="/binance")
 
 
 @router.get(
-    "/{currency}", response_model=List[RatePublic], summary="Get all rates by currency"
+    "/{currency}",
+    response_model=List[RatePublic],
+    summary="Get all rates by currency. You can filter by date using start_date and end_date query parameters.",
 )
 async def get_rates_by_currency(
     currency: RateBinanceCurrency = Depends(get_currency),
